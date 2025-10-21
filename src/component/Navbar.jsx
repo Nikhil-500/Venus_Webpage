@@ -47,7 +47,19 @@
 
 // export default Navbar;
 import { motion, AnimatePresence } from "framer-motion";
-import {Menu,ChevronDown,Code,Globe,Rocket,Video,Gift,Star,Briefcase,Award} from "lucide-react";
+import {
+  Menu,
+  X,
+  ChevronDown,
+  Code,
+  Globe,
+  Rocket,
+  Video,
+  Gift,
+  Star,
+  Briefcase,
+  Award,
+} from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -58,26 +70,10 @@ function Navbar() {
   const navigate = useNavigate();
 
   const services = [
-    {
-      name: "Web Development",
-      path: "/services/web-development",
-      icon: <Code size={16} />,
-    },
-    {
-      name: "Digital Marketing",
-      path: "/services/digital-marketing",
-      icon: <Globe size={16} />,
-    },
-    {
-      name: "Branding",
-      path: "/services/branding",
-      icon: <Rocket size={16} />,
-    },
-    {
-      name: "Production House",
-      path: "/services/production-house",
-      icon: <Video size={16} />,
-    },
+    { name: "Web Development", path: "/services/web-development", icon: <Code size={16} /> },
+    { name: "Digital Marketing", path: "/services/digital-marketing", icon: <Globe size={16} /> },
+    { name: "Branding", path: "/services/branding", icon: <Rocket size={16} /> },
+    { name: "Production House", path: "/services/production-house", icon: <Video size={16} /> },
   ];
 
   const packages = [
@@ -95,6 +91,7 @@ function Navbar() {
       className="fixed w-full z-50 bg-black/70 backdrop-blur-md text-white shadow-lg border-b border-purple-800/20"
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center p-4">
+        {/* Logo */}
         <h1
           className="text-2xl font-bold text-purple-500 cursor-pointer"
           onClick={() => navigate("/")}
@@ -102,16 +99,13 @@ function Navbar() {
           VENUS
         </h1>
 
+        {/* Desktop Menu */}
         <ul className="hidden md:flex space-x-6 text-sm uppercase tracking-wide">
           <li>
-            <Link to="/" className="hover:text-purple-500 transition font-mono">
-              Home
-            </Link>
+            <Link to="/" className="hover:text-purple-500 transition font-mono">Home</Link>
           </li>
           <li>
-            <Link to="/about" className="hover:text-purple-500 transition font-mono">
-              About
-            </Link>
+            <Link to="/about" className="hover:text-purple-500 transition font-mono">About</Link>
           </li>
 
           {/* SERVICES DROPDOWN */}
@@ -193,10 +187,76 @@ function Navbar() {
         </ul>
 
         {/* MOBILE MENU ICON */}
-        <button onClick={() => setOpen(!open)} className="md:hidden">
-          <Menu />
+        <button onClick={() => setOpen(!open)} className="md:hidden text-purple-400 focus:outline-none">
+          {open ? <X size={26} /> : <Menu size={26} />}
         </button>
       </div>
+
+      {/* MOBILE MENU */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-black border-t border-purple-700/30 p-6 space-y-4"
+          >
+            <Link to="/" onClick={() => setOpen(false)} className="block text-gray-300 hover:text-purple-400">Home</Link>
+            <Link to="/about" onClick={() => setOpen(false)} className="block text-gray-300 hover:text-purple-400">About</Link>
+
+            {/* MOBILE SERVICES */}
+            <details className="group">
+              <summary className="cursor-pointer flex items-center justify-between text-gray-300 hover:text-purple-400">
+                Services <ChevronDown size={14} />
+              </summary>
+              <div className="mt-2 ml-4 space-y-2">
+                {services.map((s, i) => (
+                  <button
+                    key={i}
+                    onClick={() => {
+                      navigate(s.path);
+                      setOpen(false);
+                    }}
+                    className="block w-full text-left text-gray-400 hover:text-purple-400"
+                  >
+                    {s.name}
+                  </button>
+                ))}
+              </div>
+            </details>
+
+            {/* MOBILE PACKAGES */}
+            <details className="group">
+              <summary className="cursor-pointer flex items-center justify-between text-gray-300 hover:text-purple-400">
+                Packages <ChevronDown size={14} />
+              </summary>
+              <div className="mt-2 ml-4 space-y-2">
+                {packages.map((p, i) => (
+                  <button
+                    key={i}
+                    onClick={() => {
+                      navigate(p.path);
+                      setOpen(false);
+                    }}
+                    className="block w-full text-left text-gray-400 hover:text-purple-400"
+                  >
+                    {p.name}
+                  </button>
+                ))}
+              </div>
+            </details>
+
+            <Link
+              to="/contact"
+              onClick={() => setOpen(false)}
+              className="block text-center bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg font-semibold"
+            >
+              Contact
+            </Link>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 }
