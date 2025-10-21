@@ -127,7 +127,6 @@
 // };
 
 // export default Home;
-
 import React from "react";
 import { motion } from "framer-motion";
 import { Code, Globe, Rocket, Brush } from "lucide-react";
@@ -165,9 +164,11 @@ const Home = () => {
           </motion.a>
         </motion.div>
 
+        {/* LOCAL IMAGE instead of external Unsplash */}
         <motion.img
-          src="https://images.unsplash.com/photo-1522199710521-72d69614c702?auto=format&fit=crop&w=900&q=80"
+          src="/assets/digital-innovation.jpg"
           alt="Digital Innovation"
+          onError={(e) => (e.target.src = "https://via.placeholder.com/450")}
           initial={{ opacity: 0, x: 80 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1 }}
@@ -188,26 +189,10 @@ const Home = () => {
 
         <div className="max-w-6xl mx-auto grid md:grid-cols-4 gap-8 px-8">
           {[
-            {
-              icon: <Code size={36} />,
-              title: "Web Development",
-              desc: "Modern, responsive, and scalable web apps for your business.",
-            },
-            {
-              icon: <Globe size={36} />,
-              title: "Digital Marketing",
-              desc: "Grow your reach with SEO, social media, and ad campaigns.",
-            },
-            {
-              icon: <Brush size={36} />,
-              title: "UI/UX Design",
-              desc: "Elegant and intuitive designs that drive user engagement.",
-            },
-            {
-              icon: <Rocket size={36} />,
-              title: "Branding",
-              desc: "Build a strong, memorable identity for your company.",
-            },
+            { icon: <Code size={36} />, title: "Web Development", desc: "Modern, responsive, and scalable web apps for your business." },
+            { icon: <Globe size={36} />, title: "Digital Marketing", desc: "Grow your reach with SEO, social media, and ad campaigns." },
+            { icon: <Brush size={36} />, title: "UI/UX Design", desc: "Elegant and intuitive designs that drive user engagement." },
+            { icon: <Rocket size={36} />, title: "Branding", desc: "Build a strong, memorable identity for your company." },
           ].map((service, index) => (
             <motion.div
               key={index}
@@ -230,8 +215,9 @@ const Home = () => {
       {/* ABOUT SECTION */}
       <section className="py-20 px-8 md:px-20 bg-gradient-to-b from-black to-gray-950 flex flex-col md:flex-row items-center gap-10">
         <motion.img
-          src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=900&q=80"
+          src="/assets/venus-team.jpg"
           alt="Venus Soft Team"
+          onError={(e) => (e.target.src = "https://via.placeholder.com/400")}
           initial={{ opacity: 0, x: -80 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 1 }}

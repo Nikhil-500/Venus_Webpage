@@ -47,19 +47,7 @@
 
 // export default Navbar;
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Menu,
-  X,
-  ChevronDown,
-  Code,
-  Globe,
-  Rocket,
-  Video,
-  Gift,
-  Star,
-  Briefcase,
-  Award,
-} from "lucide-react";
+import { Menu,X,ChevronDown,Code,Globe,Rocket,Video,Gift,Star,Briefcase,Award,} from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
